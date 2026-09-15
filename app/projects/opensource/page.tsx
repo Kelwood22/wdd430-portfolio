@@ -1,4 +1,5 @@
-export default function OpenSourcePage() {
+export default async function OpenSourcePage() {
+ 
   return (
     <main>
       <h1>Open Source Projects</h1>

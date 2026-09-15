@@ -40,3 +40,41 @@ export async function getProjectById(
 
   return rows[0] ?? null;
 }
+
+const ITEMS_PER_PAGE = 6;
+
+export async function fetchFilteredProjects(
+  query: string,
+  currentPage: number
+): Promise<Project[]> {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  const { rows } = await sql<Project>`
+    SELECT *
+    FROM projects
+    WHERE
+      title ILIKE ${`%${query}%`}
+      OR description ILIKE ${`%${query}%`}
+    ORDER BY id
+    LIMIT ${ITEMS_PER_PAGE}
+    OFFSET ${offset}
+  `;
+
+  return rows;
+}
+
+export async function fetchProjectsPages(
+  query: string
+): Promise<number> {
+  const { rows } = await sql<{ count: string }>`
+    SELECT COUNT(*) as count
+    FROM projects
+    WHERE
+      title ILIKE ${`%${query}%`}
+      OR description ILIKE ${`%${query}%`}
+  `;
+
+  const count = Number(rows[0].count);
+
+  return Math.ceil(count / ITEMS_PER_PAGE);
+}
