@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
 
   const type = searchParams.get("type");
 
-  const results = getProjects(type);
+ const results = await getProjects(type);
 
   return NextResponse.json(results);
 }
