@@ -1,6 +1,6 @@
 import { getProjectById } from '@/lib/projects-db';
 import { updateProject } from '@/lib/actions';
-import { deleteProject } from '@/lib/actions';
+import { notFound } from 'next/navigation';
 
 export default async function EditProjectPage({
   params,
@@ -18,14 +18,16 @@ export default async function EditProjectPage({
 
 
   if (!project) {
-    return <p>Project not found.</p>;
+    notFound();
   }
 
   return (
-    <main>
-      <h1>Edit Project</h1>
+    <main className="mx-auto max-w-3xl px-6 py-8">
+      <h1 className="mb-8 text-3xl font-bold text-slate-900">Edit Project</h1>
 
-      <form action={updateProjectWithId}>
+          <form action={updateProjectWithId}
+          className="space-y-6 rounded-lg border border-slate-200 bg-white p-6 shadow-sm"
+            >
         <div>
             <label htmlFor="title">Title</label>
             <input
@@ -33,6 +35,7 @@ export default async function EditProjectPage({
                 name="title"
                 defaultValue={project.title}
                 required
+                className="w-full rounded-md border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
             />
         </div>
 
@@ -46,6 +49,7 @@ export default async function EditProjectPage({
                 name="description"
                 defaultValue={project.description}
                 required
+                className="w-full rounded-md border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
             />
         </div>
               
@@ -75,6 +79,7 @@ export default async function EditProjectPage({
                 name="technologies"
                 defaultValue={project.technologies.join(', ')}
                 required
+                className="w-full rounded-md border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
             />
         </div>
         
@@ -85,10 +90,14 @@ export default async function EditProjectPage({
                 id="link"
                 name="link"
                 defaultValue={project.link ?? ''}
+                className="w-full rounded-md border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
             />
         </div>
 
-        <button type="submit">
+        <button
+            type="submit"
+            className="rounded-md bg-blue-600 px-4 py-2 font-semibold text-white hover:bg-blue-700"
+        >   
             Save Changes
         </button>
       </form>

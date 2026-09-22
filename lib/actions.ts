@@ -92,7 +92,8 @@ export async function updateProject(
   const technologiesValue =
     `{${technologiesArray.join(',')}}`;
 
-  await sql`
+  try {
+    await sql`
     UPDATE projects
     SET
       title = ${title},
@@ -104,14 +105,24 @@ export async function updateProject(
   `;
 
   revalidatePath('/projects');
-  redirect('/projects');
+      redirect('/projects');
+  } catch (error) {
+    console.error('Failed to update project:', error);
+    throw new Error('Failed to update project');
+  }
 }
 
 export async function deleteProject(id: number) {
-  await sql`
+    try {
+        await sql`
     DELETE FROM projects
     WHERE id = ${id}
   `;
 
-  revalidatePath('/projects');
+        revalidatePath('/projects');
+    } catch (error) {
+        console.error('Failed to delete project:', error);
+    
+        throw new Error('Failed to delete project');
+    }
 }
