@@ -58,3 +58,60 @@ await sql`
   revalidatePath('/projects');
   redirect('/projects');
 }
+
+export async function updateProject(
+  id: string,
+  formData: FormData
+) {
+  const rawData = {
+    title: formData.get('title'),
+    description: formData.get('description'),
+    type: formData.get('type'),
+    technologies: formData.get('technologies'),
+    link: formData.get('link') || '',
+  };
+
+  const parsed = ProjectFormSchema.safeParse(rawData);
+
+  if (!parsed.success) {
+    throw new Error('Invalid project data');
+  }
+
+  const {
+    title,
+    description,
+    type,
+    technologies,
+    link,
+  } = parsed.data;
+
+  const technologiesArray = technologies
+    .split(',')
+    .map((t) => t.trim());
+
+  const technologiesValue =
+    `{${technologiesArray.join(',')}}`;
+
+  await sql`
+    UPDATE projects
+    SET
+      title = ${title},
+      description = ${description},
+      type = ${type},
+      technologies = ${technologiesValue},
+      link = ${link}
+    WHERE id = ${id}
+  `;
+
+  revalidatePath('/projects');
+  redirect('/projects');
+}
+
+export async function deleteProject(id: number) {
+  await sql`
+    DELETE FROM projects
+    WHERE id = ${id}
+  `;
+
+  revalidatePath('/projects');
+}
