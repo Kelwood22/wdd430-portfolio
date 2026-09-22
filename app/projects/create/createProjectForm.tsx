@@ -29,7 +29,7 @@ export default function CreateProjectForm() {
               <div
                   id="title-error"
                   aria-live="polite">
-                  {state.errors?.title?.map((error) => (
+                  {state.errors?.title?.map((error: string) => (
                     <p key={error} className="mt-1 text-sm text-red-600">{error}</p>    
                 ))}
               </div>
@@ -48,7 +48,7 @@ export default function CreateProjectForm() {
               <div
                   id="description-error"
                   aria-live="polite">
-                  {state.errors?.description?.map((error) => (
+                  {state.errors?.description?.map((error: string) => (
                     <p key={error} className="mt-1 text-sm text-red-600">{error}</p>    
                 ))}
               </div>
@@ -84,7 +84,7 @@ export default function CreateProjectForm() {
               <div
                   id="technologies-error"
                   aria-live="polite">
-                  {state.errors?.technologies?.map((error) => (
+                  {state.errors?.technologies?.map((error: string) => (
                     <p key={error} className="mt-1 text-sm text-red-600">{error}</p>    
                 ))}
               </div>
@@ -120,7 +120,7 @@ export default function CreateProjectForm() {
           <div
               id="yearCompleted-error"
               aria-live="polite">
-              {state.errors?.yearCompleted?.map((error) => (
+              {state.errors?.yearCompleted?.map((error: string) => (
                 <p key={error} className="mt-1 text-sm text-red-600">{error}</p>    
             ))}
           </div>

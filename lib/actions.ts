@@ -29,7 +29,7 @@ const ProjectFormSchema = z.object({
 });
 
 export async function createProject(prevState: State,
-formData: FormData): Promise<State | void> {
+formData: FormData): Promise<State> {
   const rawData = {
     title: formData.get('title'),
     description: formData.get('description'),
