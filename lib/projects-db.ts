@@ -7,6 +7,7 @@ export interface Project {
   type: 'opensource' | 'school';
   technologies: string[];
   link?: string;
+  yearCompleted: number;
 }
 
 export async function getProjects(
