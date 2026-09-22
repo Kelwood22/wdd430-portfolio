@@ -93,6 +93,23 @@ export default async function EditProjectPage({
                 className="w-full rounded-md border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
             />
         </div>
+              
+        <div>
+            <label htmlFor="yearCompleted">
+                Year Completed
+            </label>
+
+            <input
+                id="yearCompleted"
+                name="yearCompleted"
+                type="number"
+                min="2000"
+                max={new Date().getFullYear()}
+                defaultValue={project.yearCompleted}
+                required
+                className="w-full rounded-md border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+            />
+        </div>
 
         <button
             type="submit"
